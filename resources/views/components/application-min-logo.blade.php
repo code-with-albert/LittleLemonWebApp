@@ -1,0 +1,1 @@
+<img src="{{asset('images/minlogo.png')}}" alt="mini icon" {{ $attributes }}>
