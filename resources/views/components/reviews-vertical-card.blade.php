@@ -15,16 +15,17 @@ $halfStar = $item['rating'] - floor($item['rating']);
 
             <x-slot name="content">
                 @auth
-                <form method="POST" action="reviews">
-                    @csrf
-                    @method('PATCH')
-                    <input type="number" class="hidden" value="{{$item['id']}}" name="review-id" readonly>
-                    <x-dropdown-button onclick="event.preventDefault();
-                                this.closest('form').submit();">
-                    {{ __('Report') }}</x-dropdown-button>
-                </form>
                     @if(Auth::user()->id == $item['user_id'])
                         <x-dropdown-link x-on:click="toggleMaintenance()" class="cursor-not-allowed" href="#{{-- reviews/{{$item['id']}} --}}">{{ __('Edit') }}</x-dropdown-link>
+                    @else                
+                        <form method="POST" action="reviews">
+                        @csrf
+                        @method('PATCH')
+                        <input type="number" class="hidden" value="{{$item['id']}}" name="review-id" readonly>
+                        <x-dropdown-button onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                        {{ __('Report') }}</x-dropdown-button>
+                        </form>
                     @endif
                 @else
                     <x-dropdown-button @click="toggle()">{{ __('Report') }}</x-dropdown-button>
